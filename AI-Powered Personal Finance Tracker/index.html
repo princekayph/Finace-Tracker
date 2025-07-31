@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width = device-width, initial-scale = 1.0">
+        <title>Personal Finance Tracker</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <button id="theme-Toggle">Dark Mode</button>
+        <header>
+            <h1>Budget Tracker</h1>
+            <p>Balance: $<span id="balance">0</span></p>
+        </header>
+        <form id="transaction-form">
+            <input type="text" placeholder="Title" required>
+            <input type="number" placeholder="Amount (+/-)" required>
+
+                <select>
+                    <option>All</option>
+                    <option>Food</option>
+                    <option>Utilities</option>
+                    <option>Transport</option>
+                    <option>Entertainment</option>
+                    <option>Other</option>
+                </select>
+            <button type="submit">Add</button>
+        </form>
+
+        <label for="category-filter">Filter by category:</label>
+            <select id="category-filter">
+                <option value="all">All</option>
+                <option value="Food">Food</option>
+                <option value="Utilities">Utilities</option>
+                <option value="Transport">Transport</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Other">Other</option>                   
+            </select>
+
+        <ul id="transactions">
+            <li class="expense">
+                 <span class="date"></span></li>
+        </ul>
+
+        <div id="chart-container">
+            <canvas id="categoryChart" width="400" height="400"></canvas>
+        </div>
+        <section class="ai-advice">
+            <button>Get Ai advice</button>
+            <p id="adviceText">Your insights will appear here.</p>
+        </section>
+        <script src="app2.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </body>
+</html>
