@@ -78,7 +78,7 @@ header h1 {
 /*transaction form*/
 #transaction-form {
     margin: 1.5rem 0;
-    background: white;
+    background: var(--card-bg);
     padding: 1rem;
     border-radius: 0.5rem;
     display: flex;
@@ -94,7 +94,7 @@ header h1 {
 }
 
 #transaction-form button {
-    background: #4caf50;
+    background: var(--primary-color);
     color: white;
     padding: 0.6rem;
     border: none;
@@ -107,6 +107,13 @@ header h1 {
     background: #45a049;
 }
 
+#category-filter{
+    margin: 1rem 0;
+    padding: 0.4rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
 /*transactions list*/
 
 #transactions {
@@ -115,7 +122,7 @@ header h1 {
 }
 
 #transactions li {
-    background: white;
+    background: var(--card-bg);
     margin-bottom: 0.5rem;
     padding: 0.75rem;
     border-left: 5px solid;
@@ -136,6 +143,7 @@ canvas {
     margin: 2rem auto;
     display: block;
 }
+ss
 
 /*ai-advice*/
 .ai-advice {
@@ -146,7 +154,7 @@ canvas {
 }
 
 .ai-advice button {
-    background: var(--primary-color);
+    background: #64b5f6;
     color: white;
     border: none;
     padding: 0.6rem 1rem;
