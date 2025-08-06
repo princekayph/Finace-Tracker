@@ -16,7 +16,7 @@ form.addEventListener("submit", e => {
     const amount = parseFloat(form.querySelector("input[type='number']").value);
     const category = form.querySelector("select").value;
 
-    if (title === "" || isNaN(amount) || amount === 0) {
+    if (!title || isNaN(amount) || amount === 0) {
         alert("Please enter a valid title and non-zero amount.");
         return;
     }
@@ -39,7 +39,6 @@ function renderTransactions() {
     list.innerHTML = "";
 
     const filteredTransactions = transactions.filter(t => {
-        // Use the currentFilter value to determine which transactions to show
         if (currentFilter === "income") return t.amount > 0;
         if (currentFilter === "expense") return t.amount < 0;
         return true;
@@ -100,7 +99,7 @@ function refreshUI() {
 // Listen for changes on the dropdown
 categoryFilter.addEventListener("change", () => {
     currentFilter = categoryFilter.value;
-    renderTransactions();
+    refreshUI();
 });
 
 //category totals for the chart
@@ -119,11 +118,17 @@ function getCategoryTotals(data){
 
 //render the chart
 function renderChart(){
-    const selectedCategory = filter.value;
-    const dataToShow = selectedCategory === "all" ? transactions
-    : transactions.filter(t => t.category === selectedCategory);
+    //const selectedCategory = filter.value;
+    const dataToShow = currentFilter === "all" ? transactions
+    //: transactions.filter(t => t.category === selectedCategory);
+    :transactions.filter(t => {
+        if(currentFilter === "income") return t.amount > 0;
+        if(currentFilter === "expense") return t.amount < 0;
 
-    let totals = getCategoryTotals(dataToShow)
+        return t.category === currentFilter;
+    });
+
+    const totals = getCategoryTotals(dataToShow)
     const categories = Object.keys(totals);
     const amounts = Object.values(totals);
 
@@ -134,7 +139,7 @@ function renderChart(){
     const ctx = document.getElementById("categoryChart").getContext("2d");
 
     categoryChart = new Chart(ctx, {
-        type:"pie",
+        type:"bar",
         data:{
             labels: categories,
             datasets:[{
@@ -150,15 +155,31 @@ function renderChart(){
             responsive: true,
             plugins:{
                 legend:{
-                    position:"bottom"
+                    display: false
                 },
                 title:{
                     display: true,
                     text: "Spending Breakdown by Category"
                 }
+            },
+            scales:{
+                y:{
+                    beginAtZero: true,
+                    title:{
+                        display: true,
+                        text: "Amount($)"
+                    }
+                },
+                x:{
+                    title:{
+                        display: true,
+                        text: "Category"
+
+                    }
+                }
             }
         }
-    })
+    });
 }
 
 
